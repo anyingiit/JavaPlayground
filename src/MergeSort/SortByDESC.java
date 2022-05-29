@@ -30,22 +30,14 @@ public class SortByDESC {
             if (arrCopyL > arrCopyMid && arrCopyR > arrCopy.length - 1) {
                 break;
             }
-            if (arrCopyL <= arrCopyMid && arrCopyR <= arrCopy.length - 1) {
-                if (arrCopy[arrCopyL] < arrCopy[arrCopyR]) {
-                    arr[k] = arrCopy[arrCopyL];
-                    arrCopyL++;
-                } else {
-                    arr[k] = arrCopy[arrCopyR];
-                    arrCopyR++;
-                }
-            } else {
-                if (arrCopyR > arrCopy.length - 1) {
-                    arr[k] = arrCopy[arrCopyL];
-                    arrCopyL++;
-                } else {
-                    arr[k] = arrCopy[arrCopyR];
-                    arrCopyR++;
-                }
+
+            // 如果R越界了或者我自身存在并且比R对应的元素小
+            if (arrCopyR > arrCopy.length - 1 || (arrCopyL <= arrCopyMid && arrCopy[arrCopyL] < arrCopy[arrCopyR])) {
+                arr[k] = arrCopy[arrCopyL];
+                arrCopyL++;
+            } else {// R一定没有越界, 并且L越界了或者R比L对应的元素小
+                arr[k] = arrCopy[arrCopyR];
+                arrCopyR++;
             }
             k++;
         }
