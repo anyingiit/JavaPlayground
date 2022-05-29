@@ -17,7 +17,7 @@ public class TestSortByDESC {
 
     @Test
     public void test2() {
-        int[] test = Random.generateRandoms(100000);
+        int[] test = Random.generateRandoms(1000000);
         MergeSort.SortByDESC.sort(test);
 
         Assertions.assertTrue(OrderArray.checkArrIsOrderByDESC(test));

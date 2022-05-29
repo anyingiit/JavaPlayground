@@ -17,33 +17,34 @@ public class SortByDESC {
     }
 
     private static void merge(int[] arr, int l, int mid, int r) {
-        int[] arrCopy = new int[arr.length];
-        for (int i = 0; i < arr.length; i++) {
-            arrCopy[i] = arr[i];
+        int[] arrCopy = new int[r - l + 1];
+        for (int i = 0; i < r - l + 1; i++) {
+            arrCopy[i] = arr[l + i];
         }
 
-        int i = l;
-        int j = mid + 1;
+        int arrCopyMid = mid - l;
+        int arrCopyL = 0;
+        int arrCopyR = arrCopyMid + 1;
         int k = l;
         while (true) {
-            if (i > mid && j > r) {
+            if (arrCopyL > arrCopyMid && arrCopyR > arrCopy.length - 1) {
                 break;
             }
-            if (i <= mid && j <= r) {
-                if (arrCopy[i] < arrCopy[j]) {
-                    arr[k] = arrCopy[i];
-                    i++;
+            if (arrCopyL <= arrCopyMid && arrCopyR <= arrCopy.length - 1) {
+                if (arrCopy[arrCopyL] < arrCopy[arrCopyR]) {
+                    arr[k] = arrCopy[arrCopyL];
+                    arrCopyL++;
                 } else {
-                    arr[k] = arrCopy[j];
-                    j++;
+                    arr[k] = arrCopy[arrCopyR];
+                    arrCopyR++;
                 }
             } else {
-                if (j > r) {
-                    arr[k] = arrCopy[i];
-                    i++;
+                if (arrCopyR > arrCopy.length - 1) {
+                    arr[k] = arrCopy[arrCopyL];
+                    arrCopyL++;
                 } else {
-                    arr[k] = arrCopy[j];
-                    j++;
+                    arr[k] = arrCopy[arrCopyR];
+                    arrCopyR++;
                 }
             }
             k++;
