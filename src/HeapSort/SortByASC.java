@@ -16,16 +16,16 @@ public class SortByASC {
     private static void minHeapSiftDown(int[] array, int index, int len) {
         int inspect = index;
         while (inspect * 2 + 1 < len) {
-            int maxIndex = inspect * 2 + 1;
-            if (inspect * 2 + 2 < len && array[inspect * 2 + 2] < array[maxIndex]) {
-                maxIndex = inspect * 2 + 2;
+            int minIndex = inspect * 2 + 1;
+            if (inspect * 2 + 2 < len && array[inspect * 2 + 2] < array[minIndex]) {
+                minIndex = inspect * 2 + 2;
             }
 
-            if (array[maxIndex] < array[inspect]) {
-                int temp = array[maxIndex];
-                array[maxIndex] = array[inspect];
+            if (array[minIndex] < array[inspect]) {
+                int temp = array[minIndex];
+                array[minIndex] = array[inspect];
                 array[inspect] = temp;
-                inspect = maxIndex;
+                inspect = minIndex;
             } else {
                 break;
             }

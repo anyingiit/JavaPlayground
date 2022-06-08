@@ -16,16 +16,16 @@ public class SortByDESC {
     private static void maxHeapSiftDown(int[] array, int index, int len) {
         int inspect = index;
         while (inspect * 2 + 1 < len) {
-            int minIndex = inspect * 2 + 1;
-            if (inspect * 2 + 2 < len && array[inspect * 2 + 2] > array[minIndex]) {
-                minIndex = inspect * 2 + 2;
+            int maxIndex = inspect * 2 + 1;
+            if (inspect * 2 + 2 < len && array[inspect * 2 + 2] > array[maxIndex]) {
+                maxIndex = inspect * 2 + 2;
             }
 
-            if (array[minIndex] > array[inspect]) {
-                int temp = array[minIndex];
-                array[minIndex] = array[inspect];
+            if (array[maxIndex] > array[inspect]) {
+                int temp = array[maxIndex];
+                array[maxIndex] = array[inspect];
                 array[inspect] = temp;
-                inspect = minIndex;
+                inspect = maxIndex;
             } else {
                 break;
             }
