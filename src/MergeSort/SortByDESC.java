@@ -32,7 +32,7 @@ public class SortByDESC {
             }
 
             // 如果R越界了或者我自身存在并且比R对应的元素小
-            if (arrCopyR > arrCopy.length - 1 || (arrCopyL <= arrCopyMid && arrCopy[arrCopyL] < arrCopy[arrCopyR])) {
+            if (arrCopyR > arrCopy.length - 1 || (arrCopyL <= arrCopyMid && arrCopy[arrCopyL] > arrCopy[arrCopyR])) {
                 arr[k] = arrCopy[arrCopyL];
                 arrCopyL++;
             } else {// R一定没有越界, 并且L越界了或者R比L对应的元素小
