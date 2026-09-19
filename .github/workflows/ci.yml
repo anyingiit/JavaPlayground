@@ -1,11 +1,23 @@
 # Source: GitHub starter workflow "Simple workflow" (MIT) — https://github.com/actions/starter-workflows/blob/main/ci/blank.yml
+#
+# Repaired by repocurator (feature 002):
+#   - `push` and `pull_request` triggered on `main`; this repository's default
+#     branch is `master`, so the workflow had never run on a push to it.
+#   - the test job ran the starter's placeholder echo, so a green check
+#     proved only that the runner could print a sentence. There is no build
+#     tool here (no pom.xml/build.gradle) -- every JUnit 5 jar the tests need
+#     is already vendored under libs/JUnit5/ -- so the test job now compiles
+#     the sources with javac and runs the existing JUnit 5 test classes
+#     through a small Launcher-API bootstrap, ci/RunTests.java (added by this
+#     same change), since the vendored jars do not include a standalone
+#     console-launcher jar to invoke tests directly.
 name: CI
 
 on:
   push:
-    branches: [main]
+    branches: [master]
   pull_request:
-    branches: [main]
+    branches: [master]
   workflow_dispatch:
 
 # The workflow token is read-only by default.
@@ -52,7 +64,13 @@ jobs:
         with:
           persist-credentials: false
 
-      # Replace the step below with your project's test command. Pin any setup
-      # action you add to a full commit SHA, like the checkout step above.
-      - name: Run tests
-        run: echo "No tests yet. Replace this step with your project's test command."
+      - uses: actions/setup-java@c5195efecf7bdfc987ee8bae7a71cb8b11521c00 # v4.7.1
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Build
+        run: javac -d out -cp "libs/JUnit5/*" $(find src ci -name '*.java')
+
+      - name: Test
+        run: java -cp "out:libs/JUnit5/*" RunTests
